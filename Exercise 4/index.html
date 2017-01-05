@@ -10,32 +10,33 @@
 			<!-- 1) Start the Effect with the Button. The Effect should alternate the "highlight" or "shrink" class on each new setInterval tick (attach respective class to the div with id "effect" below) -->
 			<div>
 				<button @click="startEffect">Start Effect</button>
-				<div id="effect" :class="classes"></div>
+				<div id="effect" :class="sEffect"></div>
 			</div>
 			<!-- 2) Create a couple of CSS classes and attach them via the array syntax -->
 			<div :class="['big', 'blue']">I got no class :(</div>
 			<!-- 3) Let the user enter a class (create some example classes) and attach it -->
 			<div>
 				<input type="text" v-model="userClass">
-				<div :class="[userClass]">hey</div>
+				<div :class="userClass">Number 3</div>
 			</div>
 			<!-- 4) Let the user enter a class and enter true/ false for another class (create some example classes) and attach the classes -->
 			<div>
-				<input type="text" v-model="firstClass">
-				<input type="text" v-model="secondClass">
-				<div :class="[{big: secondClass}, firstClass]">#4</div>
+				<input type="text" v-model="userClass2">
+				<input type="text" v-model="userInput">
+				<div :class="[{red: userInput}, userClass2]">Number 4</div>
 			</div>
 			<!-- 5) Repeat 3) but now with values for styles (instead of class names). Attach the respective styles.  -->
 			<div>
-				<input type="text" v-model="styleClass.color">
-				<div :style="styleClass">hello</div>
+				<input type="text" v-model="userStyle.color">
+				<div :style="userStyle">Number 5</div>
 			</div>
 			<!-- 6) Create a simple progress bar with setInterval and style bindings. Start it by hitting the below button. -->
 			<div>
 				<button v-on:click="startProgress">Start Progress</button>
-				<div :class="['progress-bar']" :style="progressStyle"></div>
+				<div :class="['progress-bar']" :style="barStyle"></div>
 			</div>
-		</div>
+			</div>
+
 
 	</body>
 
@@ -46,40 +47,42 @@
 	new Vue({
 		el: "#exercise",
 		data: {
-			classes: {
-				highlight: false,
-				shrink: true
+			sEffect: {
+				shrink: true,
+				highlight: false
 			},
 			userClass: '',
-			firstClass: '',
-			secondClass: true,
-			styleClass:{
-				'font-size': '20px',
-				color: 'red'
+			userClass2: '',
+			userInput: true,
+			userClass3: '',
+			userStyle:{
+				color: 'red',
+				'font-size': '20px'
 			},
-			progressStyle:{
+			barStyle:{
 				width: '0px',
-      			backgroundColor: 'red'
+				'background-color': 'red'
 			}
 		},
-		methods: {
+		methods:{
 			startEffect: function(){
-				var outerThis = this;
+				var oThis = this;
 				setInterval(function(){
-					 outerThis.classes.highlight = !outerThis.classes.highlight;
-					 outerThis.classes.shrink = !outerThis.classes.shrink;
+					oThis.sEffect.shrink = !oThis.sEffect.shrink;
+					oThis.sEffect.highlight = !oThis.sEffect.highlight;
 				},1000);
 			},
 
 			startProgress: function(){
-				var outerThis = this;
+				var oThis = this;
 				var width = 0;
-				var intervals = setInterval(function(){
+				var inter = setInterval(function(){
 					width += 20;
-					outerThis.progressStyle.width = width + 'px';
-					if(width === 160){clearInterval(intervals);}
-				},500);
-
+					oThis.barStyle.width = width + "px";
+					if(width === 160) {
+						clearInterval(inter);
+					}
+				} ,500);
 			}
 		}
 	});
