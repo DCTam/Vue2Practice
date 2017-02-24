@@ -1,0 +1,11 @@
+ES6 Notes
+
+1) let and const are block scoped
+2) var is function scoped
+3) const cannot be re-assigned, can update object properties. E.G person.age = 30;
+4)	{
+		const name = 'dan'; //works like IFFE, won't attach to window	
+	}
+5) const cannot hoist
+6) Using arrow function inherits this from parent, don't have to worry about scope
+7) Default functions arguments function (total, tax = 0.13, tip = 0.15)
